@@ -17,7 +17,12 @@ constructor(props) {
   }
 }
 
-
+handleBankClick = () => {
+  this.setState( state => ({
+    bank_toggle: !state.bank_toggle
+  })
+  )
+}
 
 
   render() {
@@ -41,7 +46,7 @@ constructor(props) {
         />
         </div>
         <div className="col">
-        <Controller />
+        <Controller bankToggle={this.state.bank_toggle} handleBankClick={this.handleBankClick}/>
         </div>
         </div>
         </div>
