@@ -13,7 +13,10 @@ export default function DrumPadContainer(props) {
                     return <DrumPad 
                     clip={clip}
                     letter={props.letters[index]}
-                    handleClick={props.handleClick}
+                    displayClipName={props.displayClipName}
+                    volume={props.volume}
+                    handleAudioClick={props.handleAudioClick}
+                   
                     />
                 })
             }
