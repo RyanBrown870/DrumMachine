@@ -1,16 +1,16 @@
 import React from 'react'
 
-export default function Soundbank(props) {
+export default function Toggle(props) {
     let icon;
-    if (props.bankToggle) {
+    if (props.toggle) {
         icon = <i class="fas fa-toggle-on"></i>;
     } else {
         icon = <i class="fas fa-toggle-off"></i>;
     }
     return (
-        <div>
-            Bank
-            <button className="btn" onClick={props.handleBankClick}>
+        <div className="text-center col-12">
+            {props.text}
+            <button className="btn" onClick={props.handleClick}>
             {icon}
             </button>
         </div>

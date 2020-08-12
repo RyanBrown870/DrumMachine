@@ -5,20 +5,27 @@ import Controller from './Controller';
 import './App.css'
 import { clipBank } from '../util/clipBank'
 import { letters } from '../util/letters'
-import ReactDOM from 'react-dom'
+
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    
+
 
     this.state = {
       clips: clipBank[0],
       bank_toggle: true,
       letters: letters,
-      clip_name: '',
-      volume: 0.5
+      clip_name: 'Song Name',
+      volume: 0.5,
+      power: true
     }
+  }
+
+  powerToggle = () => {
+    this.setState(state => ({
+      power: !state.power
+    }))
   }
 
   handleBankClick = () => {
@@ -38,25 +45,25 @@ export default class App extends Component {
   }
 
   handleAudioClick = (e) => {
-    let audio = document.getElementById(e.target.innerText);
+    let audio = document.getElementById(e.target.innerText);  //use innertext on event to get Id of clicked element
     audio.volume = this.state.volume;
     audio.play();
     this.displayClipName(e.target.innerText); //update the text
-}
+  }
 
 
 
-handleKeyDown = (e) => {
-  // need uppercase for letters array match
-  const id = e.key.toUpperCase();
-  // only need to fire for matching keys
+  handleKeyDown = (e) => {
+    // need uppercase for letters array match
+    const id = e.key.toUpperCase();
+    // only need to fire for matching keys QWE etc
     if (letters.find(element => element == id)) {
-            let audio = document.getElementById(id);
-            audio.volume = this.state.volume;
+      let audio = document.getElementById(id);
+      audio.volume = this.state.volume;
       audio.play();
       this.displayClipName(id);
     }
-}
+  }
 
   displayClipName = (letter) => {
     const index = this.state.letters.findIndex(item => {
@@ -71,7 +78,7 @@ handleKeyDown = (e) => {
   }
 
   changeVolume = (e) => {
-    let volume = e.target.value / 100;
+    let volume = e.target.value / 100; //need number between 0-1.
     this.setState({
       volume: volume
     })
@@ -81,33 +88,55 @@ handleKeyDown = (e) => {
 
   render() {
 
+    // Remove function with power button using conditional
+    let Pads;
+    let Controls;
+
+    if (this.state.power) {
+      Pads = <DrumPadContainer
+        clips={this.state.clips}
+        letters={this.state.letters}
+        displayClipName={this.displayClipName}
+        volume={this.state.volume}
+        handleAudioClick={this.handleAudioClick}
+      />;
+      Controls = <Controller
+        power={this.state.power}
+        powerToggle={this.powerToggle}
+        bankToggle={this.state.bank_toggle}
+        handleBankClick={this.handleBankClick}
+        clipName={this.state.clip_name}
+        changeVolume={this.changeVolume}
+      />
+    } else {
+      Pads = <DrumPadContainer
+        clips={this.state.clips}
+        letters={this.state.letters}
+        volume={this.state.volume}
+      />;
+      Controls = <Controller
+        power={this.state.power}
+        powerToggle={this.powerToggle}
+        bankToggle={this.state.bank_toggle}
+        clipName={'Song Name'}
+      />
+    }
+
     return (
-      <div onKeyDown={this.handleKeyDown} tabIndex={0}>
-      <div id="drum-machine" className="container">
+      <div onKeyDown={this.handleKeyDown} tabIndex={0}>  {/* Slight hack for div keydown listener */}
+        <div id="drum-machine" className="container">
 
 
-        <div className="row vertical-center">
-          <div className="col">
-            <DrumPadContainer
-              clips={this.state.clips}
-              letters={this.state.letters}
-              displayClipName={this.displayClipName}
-              volume={this.state.volume}
-              handleAudioClick={this.handleAudioClick}
-             
-            />
+          <div className="row vertical-center">
+            <div className="col">
+              {Pads}
+            </div>
+            <div className="col">
+              {Controls}
+            </div>
           </div>
-          <div className="col">
-            <Controller
-              bankToggle={this.state.bank_toggle}
-              handleBankClick={this.handleBankClick}
-              clipName={this.state.clip_name}
-              changeVolume={this.changeVolume}
-            />
-          </div>
+          <ReactFCCtest />
         </div>
-        <ReactFCCtest />
-      </div>
 
       </div>
     )

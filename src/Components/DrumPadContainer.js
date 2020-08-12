@@ -1,21 +1,22 @@
 import React from 'react'
 import DrumPad from './DrumPad'
 
-export default function DrumPadContainer(props) {
+class DrumPadContainer extends React.Component {
 
-
+render() {
     // use map to render DrumPads then use if statement if id === 4 to include a line breaking div 
     // before the component
     return (
         <div id="display" className="row text-center btn-toolbar">
             {
-                props.clips.map((clip, index, arr) => {
-                    return <DrumPad 
+                this.props.clips.map((clip, index, arr) => {
+                    return <DrumPad
+                    key={this.props.letters[index]} 
                     clip={clip}
-                    letter={props.letters[index]}
-                    displayClipName={props.displayClipName}
-                    volume={props.volume}
-                    handleAudioClick={props.handleAudioClick}
+                    letter={this.props.letters[index]}
+                    displayClipName={this.props.displayClipName}
+                    volume={this.props.volume}
+                    handleAudioClick={this.props.handleAudioClick}
                    
                     />
                 })
@@ -23,6 +24,9 @@ export default function DrumPadContainer(props) {
         </div>
     )
 }
+}
+
+export default DrumPadContainer;
 
 //could work
 {/* <div class="container">
