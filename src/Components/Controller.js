@@ -3,17 +3,14 @@ import Toggle from './Toggle';
 import SoundName from './SoundName';
 import Volume from './Volume';
 
- class Controller extends React.Component {
-     render() {
+export default function Controller(props)  {
     return (
-        <div className="row justify-content-center align-content-stretch">
-            <Toggle text={'Power'} toggle={this.props.power} handleClick={this.props.powerToggle}/>
-            <SoundName clipName={this.props.clipName}/>
-            <Volume changeVolume={this.props.changeVolume}/>
-            <Toggle text={'Bank'} toggle={this.props.bankToggle} handleClick={this.props.handleBankClick}/>
+        <div className="row justify-content-center">
+            <Toggle text={'Power'} toggle={props.power} handleClick={props.powerToggle}/>
+            <SoundName clipName={props.clipName}/>
+            <Volume changeVolume={props.changeVolume}/>
+            <Toggle text={'Bank'} toggle={props.bankToggle} handleClick={props.handleBankClick}/>
         </div>
     )
-}
  }
 
-export default Controller;

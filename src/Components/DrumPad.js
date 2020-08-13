@@ -1,31 +1,21 @@
 import React from 'react'
 
-class DrumPad extends React.Component {
-
-
-    
-
-    render() {
-        return (
-            <div className="col-4  mt-2" >
-                <button
-                    type="button"
-                    className="btn btn-dark btn-block drum-pad"
-                    onClick={this.props.handleAudioClick}
-                    id={this.props.clip}
-                ><audio
-                id={this.props.letter}
+export default function DrumPad(props) {
+    return (
+        <div className="col-4 mt-2" >
+            <button
+                type="button"
+                className="btn btn-dark btn-block drum-pad"
+                onClick={props.handleAudioClick}
+                id={props.clip}
+            >   <audio
+                id={props.letter}
                 className="clip"
-                src={this.props.clip}>
-            </audio>
-                    {this.props.letter}
-                </button>
-
-                
-
-            </div>
-        )
-    }
+                src={props.clip}
+            >   </audio>
+                {props.letter}
+            </button>
+        </div>
+    )
 }
 
-export default DrumPad;

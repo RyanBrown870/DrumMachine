@@ -1,15 +1,13 @@
 import React from 'react'
 
-class SoundName extends React.Component {
-    render() {
+export default function SoundName(props) {
         return (
-            <div className="text-center justify-content-center">
+            <div className="text-center w-75 col-xs-12">
                 <div className="bg-info text-white">
-                    <p id="display">{this.props.clipName}</p>
+                    <p id="display" className="m-0">{props.clipName}</p>
                 </div>
             </div>
         )
-    }
+    
 }
 
-export default SoundName

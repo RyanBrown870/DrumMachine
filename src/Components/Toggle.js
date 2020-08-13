@@ -8,7 +8,7 @@ export default function Toggle(props) {
         icon = <i className="fas fa-toggle-off"></i>;
     }
     return (
-        <div className="text-center col-12">
+        <div className="text-center py-3 col-12">
             {props.text}
             <button className="btn" onClick={props.handleClick}>
             {icon}

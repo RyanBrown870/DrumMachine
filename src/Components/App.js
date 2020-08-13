@@ -33,6 +33,7 @@ export default class App extends Component {
       bank_toggle: !state.bank_toggle
     })
     )
+    //change the bank of clips used
     if (this.state.bank_toggle) {
       this.setState({
         clips: clipBank[0]
@@ -48,7 +49,7 @@ export default class App extends Component {
     let audio = document.getElementById(e.target.innerText);  //use innertext on event to get Id of clicked element
     audio.volume = this.state.volume;
     audio.play();
-    this.displayClipName(e.target.innerText); //update the text
+    this.displayClipName(e.target.innerText); //update the clip_name for this drumpad trigger
   }
 
 
@@ -61,7 +62,7 @@ export default class App extends Component {
       let audio = document.getElementById(id);
       audio.volume = this.state.volume;
       audio.play();
-      this.displayClipName(id);
+      this.displayClipName(id); //update the clip_name for this drumpad trigger
     }
   }
 
@@ -69,9 +70,8 @@ export default class App extends Component {
     const index = this.state.letters.findIndex(item => {
       return item == letter
     });
-    const regEx = /https:\/\/s3\.amazonaws.com\/freecodecamp\/drums\//;
-
-
+    const regEx = /https:\/\/s3\.amazonaws.com\/freecodecamp\/drums\//; // use the link for a unique name
+    //set clip_name to correct index of letters and split the string correctly
     this.setState(state => ({
       clip_name: this.state.clips[index].split(regEx)[1].split('.')[0].replace(/[\_\-]/g, ' ')
     }))
@@ -97,7 +97,6 @@ export default class App extends Component {
         clips={this.state.clips}
         letters={this.state.letters}
         displayClipName={this.displayClipName}
-        volume={this.state.volume}
         handleAudioClick={this.handleAudioClick}
       />;
       Controls = <Controller
@@ -112,7 +111,6 @@ export default class App extends Component {
       Pads = <DrumPadContainer
         clips={this.state.clips}
         letters={this.state.letters}
-        volume={this.state.volume}
       />;
       Controls = <Controller
         power={this.state.power}
@@ -125,15 +123,15 @@ export default class App extends Component {
     return (
       <div onKeyDown={this.handleKeyDown} tabIndex={0}>  {/* Slight hack for div keydown listener */}
         <div id="drum-machine" className="container">
-
-
           <div className="row vertical-center">
-            <div className="col">
+            <div className="row align-items-center p-5 border border-rounded border-info">
+            <div className="col-xs-12 col-md-6">
               {Pads}
             </div>
-            <div className="col">
+            <div className="col-xs-12 col-md-6">
               {Controls}
             </div>
+          </div>
           </div>
           <ReactFCCtest />
         </div>
