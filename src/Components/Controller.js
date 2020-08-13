@@ -1,5 +1,4 @@
 import React from 'react';
-import Power from './Power';
 import Toggle from './Toggle';
 import SoundName from './SoundName';
 import Volume from './Volume';
